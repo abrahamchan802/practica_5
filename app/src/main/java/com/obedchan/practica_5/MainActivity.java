@@ -10,8 +10,10 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
@@ -24,8 +26,6 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 
 public class MainActivity extends AppCompatActivity {
-
-    private JSONArray jsonResult;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,6 +74,7 @@ public class MainActivity extends AppCompatActivity {
 
         LoadURL loader = new LoadURL();
         loader.execute(ws,params);
+
     }
 
     public void getData(int id){
@@ -113,7 +114,7 @@ public class MainActivity extends AppCompatActivity {
 
         @Override
         protected String doInBackground(String... ss) {
-            
+
             try {
 
                 URL ws = new URL(ss[0]);
@@ -151,7 +152,7 @@ public class MainActivity extends AppCompatActivity {
                     return "";
                 }
             }catch (Exception e){
-                return null;
+                return "";
             }
         }
 
@@ -161,7 +162,7 @@ public class MainActivity extends AppCompatActivity {
             final TextView textResult = findViewById(R.id.textView2);
             // JSON Object
             try {
-                jsonResult = new JSONArray(s);
+                JSONArray jsonResult = new JSONArray(s);
                 String msg="";
                 for(int i =0; i < jsonResult.length(); i++){
                     JSONObject obj = jsonResult.getJSONObject(i);
@@ -172,6 +173,7 @@ public class MainActivity extends AppCompatActivity {
 
                 pd.dismiss();
             }catch (Exception e) {
+                textResult.setText("");
                 pd.dismiss();
                 return;
             }
