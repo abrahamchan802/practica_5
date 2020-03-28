@@ -59,10 +59,18 @@ public class MainActivity extends AppCompatActivity {
 
     public void insertVal(int id,Double val){
         String ws = "http://tdvib.obedchan.com/sensor/insertdata/format/json";
-        String params = "{" +
-                "\"idSensor\":"+id+"," +
-                "\"valores\":"+val+
-                "}";
+        String params="";
+        try {
+            JSONObject json = new JSONObject();
+            json.put("idSensor",id);
+            json.put("valores",val);
+
+            params = json.toString();
+
+        }catch (JSONException jex){
+            Toast.makeText(this, jex.getMessage(), Toast.LENGTH_LONG).show();
+            return;
+        }
 
         LoadURL loader = new LoadURL();
         loader.execute(ws,params);
