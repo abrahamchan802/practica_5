@@ -95,11 +95,7 @@ public class MainActivity extends AppCompatActivity {
 
         @Override
         protected String doInBackground(String... ss) {
-            try {
-                Thread.sleep(1000);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
+            
             try {
 
                 URL ws = new URL(ss[0]);
