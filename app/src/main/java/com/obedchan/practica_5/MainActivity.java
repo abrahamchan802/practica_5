@@ -78,7 +78,17 @@ public class MainActivity extends AppCompatActivity {
 
     public void getData(int id){
         String ws = "http://tdvib.obedchan.com/sensor/data/format/json";
-        String params = "{\"idSensor\":"+id+"}";
+        String params="";
+        try {
+            JSONObject json = new JSONObject();
+            json.put("idSensor",id);
+
+            params = json.toString();
+
+        }catch (JSONException jex){
+            Toast.makeText(this, jex.getMessage(), Toast.LENGTH_LONG).show();
+            return;
+        }
 
         LoadURL loader = new LoadURL();
         loader.execute(ws,params);
